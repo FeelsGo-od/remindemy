@@ -36,16 +36,17 @@ router.post('/createUser', async (req, res) => {
     }
 })
 
+console.log(process.env.JWT_SECRET);
+
 router.post('/login', async (req, res) => {
     try {
         const user = await getUserByEmail(req.body.email)
         if(user) {
             const cmp = await bcrypt.compare(req.body.password, user.password);
             if(cmp) {
-                jwt.sign({user: req.body}, process.env.JWT_SECRET, (err, token) => {
-                    res.json({token})
+                return res.json({
+                    token: jwt.sign({user: user.name}, process.env.JWT_SECRET)
                 })
-                res.send('Auth Successful')
             } else {
                 res.send("Wrong username or password.")
             }
