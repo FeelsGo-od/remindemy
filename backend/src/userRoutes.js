@@ -36,8 +36,6 @@ router.post('/createUser', async (req, res) => {
     }
 })
 
-console.log(process.env.JWT_SECRET);
-
 router.post('/login', async (req, res) => {
     try {
         const user = await getUserByEmail(req.body.email)
@@ -48,10 +46,10 @@ router.post('/login', async (req, res) => {
                     token: jwt.sign({user: user.name}, process.env.JWT_SECRET)
                 })
             } else {
-                res.send("Wrong username or password.")
+                res.send({message: "Wrong email or password."})
             }
         } else {
-            res.send("Wrong username or password.");
+            res.send({message: "Wrong email or password."})
         }
     } catch (error) {
         console.log(error);
@@ -59,8 +57,24 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/secure-resource', (req, res) => {
-    return res.status(401).json({ message: 'You need to be logged in to access this resource'})
+router.get('/profile', (req, res) => {
+    if(!req.headers.authorization) {
+        return res.status(401).json({ error: "Not Authorized" });
+    }
+
+    // Bearer <token>>
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1]
+
+    try {
+        // Verify the token is valid
+        const { user } = jwt.verify(token, process.env.JWT_SECRET)
+        return res.status(200).json({
+            message: `Congrats ${user}! You can now accesss your profile`
+        })
+    } catch (error) {
+        return res.status(401).json({ error: 'Not Authorized '})
+    }
 })
 
 module.exports = router;
