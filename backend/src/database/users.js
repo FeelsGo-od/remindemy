@@ -18,9 +18,20 @@ const getUserByEmail = async (email) => {
     return await db.users.findOne({email: email})
 }
 
+const addUsersTopic = async (id, topic) => {
+    const filter = {_id: id}
+    const updateDocument = {
+        $set: {
+            topics: topic
+        }
+    }
+    return await db.users.updateOne(filter, updateDocument)
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     createUser,
     getUserByEmail,
+    addUsersTopic,
 }

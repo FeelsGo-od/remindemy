@@ -51,8 +51,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
     - mongodb connection string: "mongodb+srv://Admin:LoraGaf998@remindemycluster.zwcs7hc.mongodb.net/?retryWrites=true&w=majority" (v) -->
 <!-- 2. Make AddUser redux feature {name: "Username", email: "usersemail@..", topics: obj} -->
 3. AddTopic in UserPage feature
-    1. Make spa routes
-    2. save login data to localhost to save user's session in cookie
+    1. Make spa routes (v)
+    2. save login data to localhost to save user's session in cookie (v)
     3. Add some fake topics objects to user like {name: "topic name", link: "link to the topic", stage: "today" / "tomorrow" / "third day" / "7th day" / "remembered", date: 'date of the next message'}
     2. Show all these topics in UserPage (v)
 <!-- 6. Show status(stage) of each topic right behind it in topicsList component

@@ -77,6 +77,15 @@ router.get('/profile', (req, res) => {
     }
 })
 
+router.post('/addTopic', async (req, res) => {
+    try {
+        const addTopic = await addUsersTopic(req.body.id, req.body.topic)
+        res.status(201).send({ status: 'OK', data: newUser })
+    } catch (error) {
+        res.status(500).send('Internal Server error Occured')
+    }
+})
+
 module.exports = router;
 
 // *** source: https://holycoders.com/node-js-bcrypt-authentication/ ***
