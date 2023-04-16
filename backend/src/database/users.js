@@ -6,7 +6,7 @@ const getAllUsers = async () => {
 }
 
 const getUserById = async (id) => {
-    return await db.users.findOne({ _id: new ObjectId(id) });
+    return await db.users.findOne({ _id: ObjectId(id) });
 }
 
 const createUser = async (user) => {
@@ -14,15 +14,19 @@ const createUser = async (user) => {
     return { ...user, _id: result.insertedId }
 }
 
-const getUserByEmail = async (email) => {
-    return await db.users.findOne({email: email})
+const getUserByEmail = async (mail) => {
+    return await db.users.findOne({email: mail})
 }
 
-const addUsersTopic = async (id, topic) => {
-    const filter = {_id: id}
+const getUserByName = async (username) => {
+    return await db.users.findOne({name: username})
+}
+
+const addUsersTopic = async (data) => {
+    const filter = {'_id': new ObjectId(`${data.id}`)}
     const updateDocument = {
         $set: {
-            topics: topic
+            topics: {text: data.text, link: data.link}
         }
     }
     return await db.users.updateOne(filter, updateDocument)
@@ -33,5 +37,6 @@ module.exports = {
     getUserById,
     createUser,
     getUserByEmail,
+    getUserByName,
     addUsersTopic,
 }

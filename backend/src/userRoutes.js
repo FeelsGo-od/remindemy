@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-const { getAllUsers, getUserById, createUser, getUserByEmail } = require('./database/users')
+const { getAllUsers, getUserById, createUser, getUserByEmail, getUserByName, addUsersTopic } = require('./database/users')
 
 const saltRounds = 10;
 
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/user/:userId', async (req, res) => {
-    const user = await getUserById(req.params.productId)
+    const user = await getUserById(req.params.userId)
 
     if(!user) {
         res.status(404).send({ status: 'FAILED', error: 'User not found' })
@@ -39,6 +39,7 @@ router.post('/createUser', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const user = await getUserByEmail(req.body.email)
+
         if(user) {
             const cmp = await bcrypt.compare(req.body.password, user.password);
             if(cmp) {
@@ -57,7 +58,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/profile', (req, res) => {
+router.get('/profile', async (req, res) => {
     if(!req.headers.authorization) {
         return res.status(401).json({ error: "Not Authorized" });
     }
@@ -70,7 +71,8 @@ router.get('/profile', (req, res) => {
         // Verify the token is valid
         const { user } = jwt.verify(token, process.env.JWT_SECRET)
         return res.status(200).json({
-            message: `Congrats ${user}! You can now accesss your profile`
+            message: `Congrats ${user}! You can now accesss your profile`,
+            currentUser: await getUserByName(user)
         })
     } catch (error) {
         return res.status(401).json({ error: 'Not Authorized '})
@@ -79,10 +81,11 @@ router.get('/profile', (req, res) => {
 
 router.post('/addTopic', async (req, res) => {
     try {
-        const addTopic = await addUsersTopic(req.body.id, req.body.topic)
-        res.status(201).send({ status: 'OK', data: newUser })
+        const addTopic = await addUsersTopic(req.body)
+        res.status(201).send({ status: 'OK', data: addTopic })
     } catch (error) {
         res.status(500).send('Internal Server error Occured')
+        console.log(error)
     }
 })
 
