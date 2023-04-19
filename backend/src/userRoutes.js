@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-const { getAllUsers, getUserById, createUser, getUserByEmail, getUserByName, addUsersTopic } = require('./database/users')
+const { getAllUsers, getUserById, createUser, getUserByEmail, getUserByName, 
+    addUsersTopic } 
+= require('./database/users')
 
 const saltRounds = 10;
 

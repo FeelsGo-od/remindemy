@@ -26,7 +26,7 @@ const addUsersTopic = async (data) => {
     const filter = {'_id': new ObjectId(`${data.id}`)}
     const updateDocument = {
         $set: {
-            topics: {text: data.text, link: data.link}
+            topics: {text: data.text, link: data.link, imagesUrls: data.imagesUrls}
         }
     }
     return await db.users.updateOne(filter, updateDocument)
