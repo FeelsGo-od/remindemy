@@ -8,8 +8,8 @@
     ],
     "routes": [
         {
-            "src": "src/user.js",
-            "dest": "/users"
+            "src": "src/index.js",
+            "dest": "/"
         }
     ]
 }
