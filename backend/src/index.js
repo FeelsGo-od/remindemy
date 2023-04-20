@@ -22,3 +22,5 @@ app.use('/users', userRoutes)
 app.listen(PORT, () => {
   console.log('API is listening on port ', PORT);
 });
+
+module.exports = app
