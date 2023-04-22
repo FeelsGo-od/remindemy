@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import Navbar from "../../components/Navbar";
 
 import { addNewUser } from "./usersSlice";
 
