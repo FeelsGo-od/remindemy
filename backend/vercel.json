@@ -23,7 +23,7 @@
             ]
         },
         {
-            "source": "/https://remindemy.vercel.app/(.*)",
+            "source": "https://remindemy.vercel.app/users/(.*)",
             "headers": [
                 { "key": "Access-Control-Allow-Credentials", "value": "true" },
                 { "key": "Access-Control-Allow-Origin", "value": "https://remindemy.vercel.app" },
