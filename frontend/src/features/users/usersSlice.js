@@ -18,6 +18,7 @@ export const addNewUser = createAsyncThunk('/users/createUser', async (user) => 
         credentials: 'same-origin',
         headers: {
             'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': 'https://remindemy.vercel.app/'
         },
         body: JSON.stringify(user)
     })
@@ -32,6 +33,7 @@ export const loginUser = createAsyncThunk('/users/login', async (data) => {
         credentials: 'same-origin',
         headers: {
             'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': 'https://remindemy.vercel.app/'
         },
         body: JSON.stringify(data)
     })
@@ -43,7 +45,8 @@ export const loginUser = createAsyncThunk('/users/login', async (data) => {
 export const showProfile = createAsyncThunk('/users/profile', async (token) => {
     const response = await fetch('https://remindemy.vercel.app/users/profile', {
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://remindemy.vercel.app/'
         }
     })
     const result = await response.json()
@@ -56,6 +59,7 @@ export const addUsersTopic = createAsyncThunk('/users/addTopic', async (data) =>
         credentials: 'same-origin',
         headers: {
             'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': 'https://remindemy.vercel.app/'
         },
         body: JSON.stringify(data)
     })
