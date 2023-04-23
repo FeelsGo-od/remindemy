@@ -11,5 +11,13 @@
             "src": "/(.*)",
             "dest": "src/index.js"
         }
+    ],
+    "headers": [
+          {
+            "source": "https://remindemy-react.vercel.app/(.*)",
+            "headers": [
+              { "key": "Access-Control-Allow-Origin", "value": "https://remindemy-react.vercel.app" }
+            ]
+          } 
     ]
 }
