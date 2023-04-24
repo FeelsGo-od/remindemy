@@ -61,7 +61,7 @@ export default function LoginForm() {
                 <div className="form-block">
                     <input className="button" type="submit" value="Login" />
                 </div>
-                {loginError ? <div className="form-block">{loginError}</div> : ''}
+                {loginError ? <div className="form-block form-error">{loginError}</div> : ''}
             </form>}
         </>
     )
