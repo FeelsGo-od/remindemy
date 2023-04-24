@@ -49,7 +49,7 @@ export default function LoginForm() {
             {successMessage ? 
             <h2 className="center pt-23">{successMessage}</h2> 
             : 
-            <form onSubmit={handleSubmit} className="form">
+            <form onSubmit={handleSubmit} className="form w-40">
                 <div className="form-block">
                     <label htmlFor="email">Enter your email: </label>
                     <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" id="email" required />

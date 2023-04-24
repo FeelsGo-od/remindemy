@@ -35,7 +35,7 @@ export default function RegisterForm() {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="form">
+            <form onSubmit={handleSubmit} className="form w-40">
                 <div className="form-block form-input">
                     <label htmlFor="name">Enter your name: </label>
                     <input onChange={(e) => setName(e.target.value)} type="text" name="name" id="name" required />
