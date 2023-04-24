@@ -139,6 +139,9 @@
 }
 
 @media (max-width: 1024px) {
+  .form {
+    width: 73%;
+  }
   .form .form-input {
     display: flex;
     justify-content: space-between;
@@ -146,6 +149,9 @@
   }
   .form label {
     margin-right: 0;
+  }
+  .form .form-block {
+    padding: 10px 27px;
   }
 }
 
