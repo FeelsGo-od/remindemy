@@ -13,7 +13,7 @@ export const fetchUsers = createAsyncThunk('users', async () => {
 })
 
 export const addNewUser = createAsyncThunk('/users/createUser', async (user) => {
-    const response = await fetch('https://remindemy.vercel.app/createUser', {
+    const response = await fetch('https://remindemy.vercel.app/users/createUser', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
