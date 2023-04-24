@@ -46,7 +46,7 @@ export default function AddTopicById ({id}) {
 
     return (
         <>
-            <form onSubmit={handleSubmit} encType="multipart/form-data" className="form mg-none">
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className="form w-40 mg-none">
                 <div className="form-block form-input">
                     <label htmlFor="text">Enter the text u want to remember: </label>
                     <textarea onChange={(e) => setText(e.target.value)} value={text} name="text" rows="15" cols="53"></textarea>

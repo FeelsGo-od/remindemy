@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { addNewUser } from "./usersSlice";
 
@@ -10,6 +11,7 @@ export default function RegisterForm() {
     const [passwordError, setPasswordError] = useState('')
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const canSave = [name, email, password].every(Boolean)
 
@@ -30,6 +32,8 @@ export default function RegisterForm() {
             setEmail('');
             setPassword('');
             setPasswordError('')
+
+            navigate('/login', { replace: true })
         }
     }
 
