@@ -24,12 +24,15 @@ const getUserByName = async (username) => {
 
 const addUsersTopic = async (data) => {
     const filter = {'_id': new ObjectId(`${data.id}`)}
-    const updateDocument = {
-        $set: {
-            topics: {text: data.text, link: data.link, imagesUrls: data.imagesUrls}
-        }
-    }
-    return await db.users.insertOne(filter, updateDocument)
+    // const updateDocument = {
+    //     $set: {
+    //         topics: {text: data.text, link: data.link, imagesUrls: data.imagesUrls}
+    //     }
+    // }
+    return await db.users.aggregate([
+        { $match: { filter } },
+        { $addFields: { topics: { $concatArrays: [ "$topics", [ {text: data.text, link: data.link, imagesUrls: data.imagesUrls} ] ] }} }
+    ])
 }
 
 module.exports = {
