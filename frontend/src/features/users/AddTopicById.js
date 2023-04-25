@@ -39,7 +39,7 @@ export default function AddTopicById ({id}) {
             // )
             // let imagesLinks = dataRes.data.url;
             dispatch(addUsersTopic({id, text, link}))
-            window.location.reload()
+            // window.location.reload()
 
         } catch (error) {
             console.log(error)
