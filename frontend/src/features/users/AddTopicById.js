@@ -31,14 +31,16 @@ export default function AddTopicById ({id}) {
         // send here images to cloudinary, and send images links to db(UsersTopic)
         try {
             const formData = new FormData()
-            formData.append('images', [...imageList])
-            formData.append('upload_preset', 'remindemyTopicsImages')
-            const dataRes = await axios.post(
-                process.env.REACT_APP_CLOUDINARY_URL,
-                formData,
-            )
-            let imagesLinks = dataRes.data.url;
-            dispatch(addUsersTopic({id, imagesLinks, text, link}))
+            // formData.append('images', [...imageList])
+            // formData.append('upload_preset', 'remindemyTopicsImages')
+            // const dataRes = await axios.post(
+            //     process.env.REACT_APP_CLOUDINARY_URL,
+            //     formData,
+            // )
+            // let imagesLinks = dataRes.data.url;
+            dispatch(addUsersTopic({id, text, link}))
+            window.location.reload()
+
         } catch (error) {
             console.log(error)
         }

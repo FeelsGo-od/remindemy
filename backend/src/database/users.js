@@ -25,7 +25,7 @@ const getUserByName = async (username) => {
 const addUsersTopic = async (data) => {
     const filter = {'_id': new ObjectId(`${data.id}`)}
     const updateDocument = {
-        $set: {
+        $push: {
             topics: {text: data.text, link: data.link, imagesUrls: data.imagesUrls}
         }
     }

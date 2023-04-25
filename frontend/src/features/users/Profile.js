@@ -28,9 +28,11 @@ export default function Profile ({id}) {
         topics = 'Loading...'
     } else if (usersStatus === 'succeeded') {
         if(Object.keys(currentUser.topics).length !== 0) {
-            // topics = currentUser.topics.map((topic) => (
-            //     <p>{topic}</p>
-            // ))
+            topics = Object.entries(currentUser.topics).map((topic) => (
+                <p key={currentUser._id}>
+                    <b>{topic[0]}</b> {topic[1]}
+                </p>
+            ))
         } else {
             topics = `You do not have topics at the moment`
         }
@@ -49,7 +51,9 @@ export default function Profile ({id}) {
                 <p><b>Name:</b> {userData.name}</p>
                 <p><b>Email:</b> {userData.email}</p>
             </div> : ''}
-            {topics}
+            <div className="pt-23">
+                {topics}
+            </div>
             <AddTopicById id={id} />
         </div>
     )
