@@ -27,7 +27,6 @@ export default function Profile ({id}) {
     if(usersStatus === 'loading') {
         topics = 'Loading...'
     } else if (usersStatus === 'succeeded') {
-        console.log(currentUser)
         if(currentUser.topics.length !== 1) {
             topics = currentUser.topics.map((topic) => 
                 <p>{topic.text}</p>
