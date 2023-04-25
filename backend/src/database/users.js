@@ -25,11 +25,11 @@ const getUserByName = async (username) => {
 const addUsersTopic = async (data) => {
     const filter = {'_id': new ObjectId(`${data.id}`)}
     const updateDocument = {
-        $push: {
+        $set: {
             topics: {text: data.text, link: data.link, imagesUrls: data.imagesUrls}
         }
     }
-    return await db.users.updateOne(filter, updateDocument)
+    return await db.users.insertOne(filter, updateDocument)
 }
 
 module.exports = {
