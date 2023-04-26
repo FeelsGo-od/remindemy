@@ -40,9 +40,9 @@ export default function AddTopicById ({id}) {
             // )
             // let imagesLinks = dataRes.data.url;
             const topicId = nanoid();
-            console.log(topicId)
-            dispatch(addUsersTopic({id, topicId, text, link}))
-            // window.location.reload()
+            const date = new Date().toLocaleDateString();
+            dispatch(addUsersTopic({id, topicId, text, link, date}))
+            window.location.reload()
 
         } catch (error) {
             console.log(error)
