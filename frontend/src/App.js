@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Users from './pages/Users'
 import Navbar from './components/Navbar';
+import Topic from './pages/Topic';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/register" element={ <Register /> } />
             <Route path="/login" element={ <Login /> } />
             <Route path="/users" element={ <Users /> } />
+            <Route path="/topics/:id" element={ <Topic /> } />
       </Routes>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from 'axios';
+import { nanoid } from 'nanoid'
 
 import { addUsersTopic } from "./usersSlice";
 
@@ -38,8 +39,10 @@ export default function AddTopicById ({id}) {
             //     formData,
             // )
             // let imagesLinks = dataRes.data.url;
-            dispatch(addUsersTopic({id, text, link}))
-            window.location.reload()
+            const topicId = nanoid();
+            console.log(topicId)
+            dispatch(addUsersTopic({id, topicId, text, link}))
+            // window.location.reload()
 
         } catch (error) {
             console.log(error)
