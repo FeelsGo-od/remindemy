@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
 
 import { fetchUsers } from "./usersSlice";
 import AddTopicById from "./AddTopicById";
@@ -8,7 +7,6 @@ import AddTopicById from "./AddTopicById";
 export default function Profile ({id}) {
     // *** this code is not "dry" -> ps. refactor it
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const usersStatus = useSelector(state => state.users.status)
     const dataFetchedRef = useRef(false)
@@ -29,11 +27,10 @@ export default function Profile ({id}) {
     if(usersStatus === 'loading') {
         topics = 'Loading...'
     } else if (usersStatus === 'succeeded') {
-        console.log(currentUser.topics);
-        if(currentUser.topics.length !== 1) {
+        if(currentUser.topics.length !== 0) {
             topics = currentUser.topics.map((topic) => 
-                <div>
-                    <a href={`topics/${topic.id}`}>{topic.text}</a>
+                <div key={topic.topicId}>
+                    <a href={`topics/${topic.topicId}`}>{topic.text}</a>
                 </div>
             )
         } else {
