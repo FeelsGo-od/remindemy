@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import axios from 'axios';
 import { nanoid } from 'nanoid'
 
-import { addUsersTopic } from "./usersSlice";
+import { addUsersTopic, deleteImageFromCloudinary } from "./usersSlice";
 
 export default function AddTopicById ({id}) {
     const [text, setText] = useState('')
@@ -11,17 +11,37 @@ export default function AddTopicById ({id}) {
     const [imageURLs, setImageURLs] = useState([])
     const [link, setLink] = useState('')
 
+    const cloudinaryRef = useRef();
+    const widgetRef = useRef();
+
     useEffect(() => {
-        if(imageList.length < 1) return;
-        const newImageUrls = []
-        imageList.forEach(image => newImageUrls.push(URL.createObjectURL(image)))
-        setImageURLs(newImageUrls)
-    }, [imageList])
+            let images = [];
+            cloudinaryRef.current = window.cloudinary;
+            widgetRef.current = cloudinaryRef.current.createUploadWidget({
+                cloudName: 'dillpvxn8',
+                uploadPreset: 'remindemyTopicsImages',
+            }, (error, result) => { 
+                if(error) console.log(error)
+                if(result.info['secure_url']) {
+                    images = [...images, {"url": result.info['secure_url'], "id": result.info['public_id']}]
+                    setImageURLs(images)
+                }
+                // if(result.event === 'close') {
+                //     setImageURLs([])
+                //     images = []
+                // }
+            });
+
+    }, [])
 
     const dispatch = useDispatch()
 
-    const handleImagesChange = (e) => {
-        setImageList([...imageList, ...e.target.files])
+    const handleImagesChange = () => {
+        widgetRef.current.open()
+    }
+
+    const deleteCurrentImg = async (id) => {
+        dispatch(deleteImageFromCloudinary(id))
     }
 
     const handleSubmit = async (e) => {
@@ -29,19 +49,11 @@ export default function AddTopicById ({id}) {
 
         if (!imageList) return;
 
-        // send here images to cloudinary, and send images links to db(UsersTopic)
         try {
-            const formData = new FormData()
-            // formData.append('images', [...imageList])
-            // formData.append('upload_preset', 'remindemyTopicsImages')
-            // const dataRes = await axios.post(
-            //     process.env.REACT_APP_CLOUDINARY_URL,
-            //     formData,
-            // )
-            // let imagesLinks = dataRes.data.url;
             const topicId = nanoid();
             const date = new Date().toLocaleDateString();
-            dispatch(addUsersTopic({id, topicId, text, link, date}))
+            console.log(imageURLs)
+            dispatch(addUsersTopic({id, topicId, text, imageURLs, link, date}))
             window.location.reload()
 
         } catch (error) {
@@ -56,11 +68,11 @@ export default function AddTopicById ({id}) {
                     <label htmlFor="text">Enter the text u want to remember: </label>
                     <textarea onChange={(e) => setText(e.target.value)} value={text} name="text" rows="15" cols="53"></textarea>
                 </div>
-                <div className="form-block form-input">
-                    <label htmlFor="images">Add images u want to study later: </label>
-                    <input type="file" onChange={handleImagesChange} accept="image/*" multiple name="images" id="images" />
+                <div className="form-block">
+                    <p>Add images u want to study later:</p>
+                    <p onClick={handleImagesChange}>Upload images</p>
                     <div className="form-uploaded-images">
-                        { imageURLs.map((imageSrc, index) => <img key={index} src={imageSrc} className="form-uploaded-img" />) }
+                        { imageURLs.map(image => <div><img key={image.id} src={image.url} id={image.id} className="form-uploaded-img" /><p onClick={() => deleteCurrentImg(image.id)}>Delete image</p></div>) }
                     </div>
                 </div>
                 <div className="form-block form-input">

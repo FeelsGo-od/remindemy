@@ -64,6 +64,20 @@ export const addUsersTopic = createAsyncThunk('/users/addTopic', async (data) =>
     return result
 })
 
+export const deleteImageFromCloudinary = createAsyncThunk('/users/topics/deleteImgById', async (id) => {
+    const response = await fetch('https://remindemy.vercel.app/users/topics/deleteImgById', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(id)
+    })
+
+    const result = response.json()
+    return result;
+})
+
 const usersSlice = createSlice({
     name: 'users',
     initialState,
