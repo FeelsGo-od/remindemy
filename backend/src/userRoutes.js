@@ -91,14 +91,13 @@ router.post('/addTopic', async (req, res) => {
     }
 })
 
-router.post('/topics/deleteImgById', async (req, res) => {
+router.delete('/topics/deleteImgById', async (req, res) => {
     try {
         const deleteImg = await deleteCloudinaryImgById({
             id: req.body.id, 
             cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
             api_key: process.env.CLOUDINARY_API_KEY,
             api_secret: process.env.CLOUDINARY_API_SECRET,
-            
         })
         res.status(200).send({ status: 'OK', data: deleteImg })
     } catch (error) {
