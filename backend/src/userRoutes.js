@@ -91,6 +91,21 @@ router.post('/addTopic', async (req, res) => {
     }
 })
 
+router.post('/topics/deleteImgById', async (req, res) => {
+    try {
+        const deleteImg = await deleteCloudinaryImgById({
+            id: req.body.id, 
+            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET,
+            
+        })
+        res.status(200).send({ status: 'OK', data: deleteImg })
+    } catch (error) {
+        res.status(500).send('Internal Server error Occured')
+    }
+})
+
 module.exports = router;
 
 // *** source: https://holycoders.com/node-js-bcrypt-authentication/ ***

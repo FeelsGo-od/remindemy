@@ -1,6 +1,8 @@
 const { ObjectId } = require('mongodb')
 const db = require('./db')
 
+let cloudinary = require('cloudinary').v2;
+
 const getAllUsers = async () => {
     return await db.users.find().toArray();
 }
@@ -32,6 +34,16 @@ const addUsersTopic = async (data) => {
     return await db.users.updateOne(filter, updateDocument)
 }
 
+const deleteCloudinaryImgById = async (data) => {
+    cloudinary.config({ 
+        cloud_name: data.cloud_name, 
+        api_key: data.api_key, 
+        api_secret: data.api_secret,
+    });
+
+    cloudinary.uploader.destroy(data.id, function(result) { console.log(result) });
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
@@ -39,4 +51,5 @@ module.exports = {
     getUserByEmail,
     getUserByName,
     addUsersTopic,
+    deleteCloudinaryImgById
 }
