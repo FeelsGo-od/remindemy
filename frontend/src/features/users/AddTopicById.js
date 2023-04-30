@@ -41,7 +41,7 @@ export default function AddTopicById ({id}) {
     }
 
     const deleteCurrentImg = async (id) => {
-        dispatch(deleteImageFromCloudinary(id))
+        dispatch(deleteImageFromCloudinary({id}))
     }
 
     const handleSubmit = async (e) => {
