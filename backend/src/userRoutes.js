@@ -102,8 +102,7 @@ router.post('/topics/deleteImgById', async (req, res) => {
         })
         res.status(200).send({ status: 'OK', data: deleteImg })
     } catch (error) {
-        console.log(error)
-        res.status(500).send('Internal Server error Occured')
+        res.status(500).send(error)
     }
 })
 
