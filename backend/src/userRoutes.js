@@ -92,18 +92,18 @@ router.post('/addTopic', async (req, res) => {
 })
 
 router.post('/topics/deleteImgById', async (req, res) => {
-    console.log(req.id)
-    // try {
-    //     const deleteImg = await deleteCloudinaryImgById({
-    //         id: req.body.id, 
-    //         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    //         api_key: process.env.CLOUDINARY_API_KEY,
-    //         api_secret: process.env.CLOUDINARY_API_SECRET,
-    //     })
-    //     res.status(200).send({ status: 'OK', data: deleteImg })
-    // } catch (error) {
-    //     res.status(500).send('Internal Server error Occured')
-    // }
+    res.header("Access-Control-Allow-Origin", 'https://remindemy-react.vercel.app');
+    try {
+        const deleteImg = await deleteCloudinaryImgById({
+            id: req.body.id, 
+            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET,
+        })
+        res.status(200).send({ status: 'OK', data: deleteImg })
+    } catch (error) {
+        res.status(500).send('Internal Server error Occured')
+    }
 })
 
 module.exports = router;
