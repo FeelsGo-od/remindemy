@@ -91,7 +91,7 @@ router.post('/addTopic', async (req, res) => {
     }
 })
 
-router.delete('/topics/deleteImgById', async (req, res) => {
+router.post('/topics/deleteImgById', async (req, res) => {
     try {
         const deleteImg = await deleteCloudinaryImgById({
             id: req.body.id, 
