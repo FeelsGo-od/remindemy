@@ -102,7 +102,8 @@ router.post('/topics/deleteImgById', async (req, res) => {
         })
         res.status(200).send({ status: 'OK', data: deleteImg })
     } catch (error) {
-        res.status(500).send(error, process.env.CLOUDINARY_API_KEY)
+        const api_key = process.env.CLOUDINARY_API_KEY;
+        res.status(500).send(error, api_key)
     }
 })
 
