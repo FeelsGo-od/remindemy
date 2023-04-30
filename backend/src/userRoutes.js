@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const { getAllUsers, getUserById, createUser, getUserByEmail, getUserByName, 
-    addUsersTopic } 
+    addUsersTopic, deleteCloudinaryImgById } 
 = require('./database/users')
 
 const saltRounds = 10;
