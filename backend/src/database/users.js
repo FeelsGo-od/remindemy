@@ -41,7 +41,7 @@ const deleteCloudinaryImgById = async (data) => {
         api_secret: data.api_secret,
     });
 
-    cloudinary.uploader.destroy(data.id, function(result) { console.log(result) });
+    // cloudinary.uploader.destroy(data.id, function(result) { console.log(result) });
 }
 
 module.exports = {
