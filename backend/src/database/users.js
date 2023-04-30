@@ -39,6 +39,7 @@ const deleteCloudinaryImgById = async (data) => {
         cloud_name: data.cloud_name, 
         api_key: data.api_key, 
         api_secret: data.api_secret,
+        secure: true
     });
 
     cloudinary.uploader.destroy(data.id, function(result) { console.log(result) });
