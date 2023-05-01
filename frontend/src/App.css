@@ -219,3 +219,13 @@
   padding-top: 20px;
   font-size: 17px;
 }
+
+.topicImgs-block{
+  width: 50%;
+  height: auto;
+}
+
+.topicImgs-block img {
+  width: 100%;
+  object-fit: cover;
+}

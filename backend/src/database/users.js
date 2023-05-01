@@ -26,7 +26,6 @@ const getUserByName = async (username) => {
 
 const addUsersTopic = async (data) => {
     const filter = {'_id': new ObjectId(`${data.id}`)}
-    console.log(data.imageURLs)
     const updateDocument = {
         $push: {
             "topics": {topicId: data.topicId, text: data.text, link: data.link, imageURLs: {...data.imageURLs}, date: data.date}

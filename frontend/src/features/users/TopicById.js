@@ -30,6 +30,16 @@ export default function Topic ({id}) {
     } else {
         topic = 'Error'
     }
+
+    let images;
+
+    if(topic.imageURLs) {
+        images = Object.entries(topic.imageURLs).map((img) => {
+            return (
+                <img className="topic-img" src={img[1].url} />
+            )
+        })
+    }
     
     return (
         <div className="pt-23 pl-23 align-left">
@@ -37,6 +47,9 @@ export default function Topic ({id}) {
             <div>
                 <p>{topic.text}</p>
                 <a href={`//${topic.link}`}>{String(topic.link)}</a>
+                <div className="topicImgs-block">
+                    {images ? images : ''}
+                </div>
             </div>
             <b>{topic.date}</b>
         </div>
