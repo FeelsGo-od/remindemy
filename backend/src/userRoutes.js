@@ -82,6 +82,7 @@ router.get('/profile', async (req, res) => {
 })
 
 router.post('/addTopic', async (req, res) => {
+    console.log(req.body.imageURLs)
     try {
         const addTopic = await addUsersTopic(req.body)
         res.status(201).send({ status: 'OK', data: addTopic })
