@@ -6,6 +6,9 @@ const initialState = {
     error: null,
 }
 
+// localhost: http://localhost:8000
+// production: https://remindemy.vercel.app
+
 export const fetchUsers = createAsyncThunk('users', async () => {
     const response = await fetch('https://remindemy.vercel.app/users')
     const users = await response.json();

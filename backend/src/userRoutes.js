@@ -93,6 +93,7 @@ router.post('/addTopic', async (req, res) => {
 
 router.post('/topics/deleteImgById', async (req, res) => {
     res.header("Access-Control-Allow-Origin", 'https://remindemy-react.vercel.app');
+    // res.header("Access-Control-Allow-Origin", 'http://localhost:3000');
     try {
         const deleteImg = await deleteCloudinaryImgById({
             id: req.body.id, 
