@@ -42,6 +42,10 @@ export default function AddTopicById ({id}) {
 
     const deleteCurrentImg = async (id) => {
         dispatch(deleteImageFromCloudinary({id}))
+
+        const currentImgIndex = imageURLs.find((image) => image.id === id)
+        imageURLs.splice(currentImgIndex, 1)
+        setImageURLs(...imageURLs)
     }
 
     const handleSubmit = async (e) => {
@@ -54,7 +58,7 @@ export default function AddTopicById ({id}) {
             const date = new Date().toLocaleDateString();
             console.log(imageURLs)
             dispatch(addUsersTopic({id, topicId, text, imageURLs, link, date}))
-            window.location.reload()
+            // window.location.reload()
 
         } catch (error) {
             console.log(error)
@@ -72,7 +76,7 @@ export default function AddTopicById ({id}) {
                     <p>Add images u want to study later:</p>
                     <p onClick={handleImagesChange}>Upload images</p>
                     <div className="form-uploaded-images">
-                        { imageURLs.map(image => <div><img key={image.id} src={image.url} id={image.id} className="form-uploaded-img" /><p onClick={() => deleteCurrentImg(image.id)}>Delete image</p></div>) }
+                        { imageURLs && imageURLs.map(image => <div><img key={image.id} src={image.url} id={image.id} className="form-uploaded-img" /><p onClick={() => deleteCurrentImg(image.id)}>Delete image</p></div>) }
                     </div>
                 </div>
                 <div className="form-block form-input">
