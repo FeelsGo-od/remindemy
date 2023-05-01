@@ -57,7 +57,7 @@ export default function AddTopicById ({id}) {
             const topicId = nanoid();
             const date = new Date().toLocaleDateString();
             console.log(imageURLs)
-            dispatch(addUsersTopic({id, topicId, text, imageURLs, link, date}))
+            dispatch(addUsersTopic({id, topicId, text, link, date}))
             // window.location.reload()
 
         } catch (error) {
