@@ -10,13 +10,13 @@ const initialState = {
 // production: https://remindemy.vercel.app
 
 export const fetchUsers = createAsyncThunk('users', async () => {
-    const response = await fetch('http://localhost:8000/users')
+    const response = await fetch('https://remindemy.vercel.app/users')
     const users = await response.json();
     return users.data;
 })
 
 export const addNewUser = createAsyncThunk('/users/createUser', async (user) => {
-    const response = await fetch('http://localhost:8000/users/createUser', {
+    const response = await fetch('https://remindemy.vercel.app/users/createUser', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -30,7 +30,7 @@ export const addNewUser = createAsyncThunk('/users/createUser', async (user) => 
 })
 
 export const loginUser = createAsyncThunk('/users/login', async (data) => {
-    const response = await fetch('http://localhost:8000/users/login', {
+    const response = await fetch('https://remindemy.vercel.app/users/login', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -44,7 +44,7 @@ export const loginUser = createAsyncThunk('/users/login', async (data) => {
 })
 
 export const showProfile = createAsyncThunk('/users/profile', async (token) => {
-    const response = await fetch('http://localhost:8000/users/profile', {
+    const response = await fetch('https://remindemy.vercel.app/users/profile', {
         headers: {
             'Authorization': `Bearer ${token}`,
         }
@@ -54,7 +54,7 @@ export const showProfile = createAsyncThunk('/users/profile', async (token) => {
 })
 
 export const addUsersTopic = createAsyncThunk('/users/addTopic', async (data) => {
-    const response = await fetch('http://localhost:8000/users/addTopic', {
+    const response = await fetch('https://remindemy.vercel.app/users/addTopic', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -68,7 +68,7 @@ export const addUsersTopic = createAsyncThunk('/users/addTopic', async (data) =>
 })
 
 export const deleteImageFromCloudinary = createAsyncThunk('/users/topics/deleteImgById', async (id) => {
-    const response = await fetch('http://localhost:8000/users/topics/deleteImgById', {
+    const response = await fetch('https://remindemy.vercel.app/users/topics/deleteImgById', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
