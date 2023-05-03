@@ -5,7 +5,7 @@ export default function Navbar() {
     const userData = JSON.parse(localStorage.getItem('user'))
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
+        localStorage.clear()
         window.location.reload()
     }
 
