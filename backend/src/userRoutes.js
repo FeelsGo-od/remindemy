@@ -6,7 +6,8 @@ require('dotenv').config()
 
 const { getAllUsers, getUserById, createUser, getUserByEmail, getUserByName, 
     addUsersTopic, deleteCloudinaryImgById } 
-= require('./database/users')
+= require('./database/users');
+const { sendEmailWithTopic } = require('./email');
 
 const saltRounds = 10;
 
@@ -89,6 +90,14 @@ router.post('/addTopic', async (req, res) => {
         res.status(500).send('Internal Server error Occured')
         console.log(error)
     }
+
+    sendEmailWithTopic({
+        receiver: req.body.email,
+        subject: `Repeat that topic TODAY, and you will remember it: "${req.body.name}"`,
+        text: req.body.text,
+        // html: `<a href=${req.body.link}">link</a> `,
+        nodemailerPassword: process.env.NODEMAILER_PASS,
+    })
 })
 
 router.post('/topics/deleteImgById', async (req, res) => {
