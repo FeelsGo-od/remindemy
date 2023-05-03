@@ -89,8 +89,9 @@ router.post('/addTopic', async (req, res) => {
         text: req.body.text,
         // html: `<a href=${req.body.link}">link</a> `,
         nodemailerPassword: process.env.NODEMAILER_PASS,
+        date: req.body.date,
     })
-    
+
     try {
         const addTopic = await addUsersTopic(req.body)
         res.status(201).send({ status: 'OK', data: addTopic })
