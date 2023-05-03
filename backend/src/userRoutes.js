@@ -83,14 +83,6 @@ router.get('/profile', async (req, res) => {
 })
 
 router.post('/addTopic', async (req, res) => {
-    try {
-        const addTopic = await addUsersTopic(req.body)
-        res.status(201).send({ status: 'OK', data: addTopic })
-    } catch (error) {
-        res.status(500).send('Internal Server error Occured')
-        console.log(error)
-    }
-
     sendEmailWithTopic({
         receiver: req.body.email,
         subject: `Repeat that topic TODAY, and you will remember it: "${req.body.name}"`,
@@ -98,6 +90,14 @@ router.post('/addTopic', async (req, res) => {
         // html: `<a href=${req.body.link}">link</a> `,
         nodemailerPassword: process.env.NODEMAILER_PASS,
     })
+    
+    try {
+        const addTopic = await addUsersTopic(req.body)
+        res.status(201).send({ status: 'OK', data: addTopic })
+    } catch (error) {
+        res.status(500).send('Internal Server error Occured')
+        console.log(error)
+    }
 })
 
 router.post('/topics/deleteImgById', async (req, res) => {

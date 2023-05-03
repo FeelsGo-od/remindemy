@@ -58,7 +58,6 @@ export default function AddTopicById ({id, email}) {
             const date = new Date().toLocaleDateString();
 
             dispatch(addUsersTopic({id, email, topicId, text, imageURLs, link, date}))
-            // window.location.reload()
 
         } catch (error) {
             console.log(error)
