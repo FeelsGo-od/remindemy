@@ -74,7 +74,7 @@ router.get('/profile', async (req, res) => {
         // Verify the token is valid
         const { user } = jwt.verify(token, process.env.JWT_SECRET)
         return res.status(200).json({
-            message: `Congrats ${user}! You can now accesss your profile`,
+            message: `Congrats ${user.name}! You can now accesss your profile`,
             currentUser: await getUserByEmail(user.email)
         })
     } catch (error) {
