@@ -37,6 +37,7 @@ export default function LoginForm() {
                     // save status to the localstorage to keep user logged-in for a while
                     localStorage.setItem('user', JSON.stringify(result.meta.arg))
                     localStorage.setItem('userId', JSON.stringify(loginStatus.payload.currentUser._id))
+                    localStorage.setItem('userEmail', JSON.stringify(email))
                     navigate('/', { replace: true })
                     window.location.reload()
                 })

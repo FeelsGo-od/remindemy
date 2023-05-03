@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid'
 
 import { addUsersTopic, deleteImageFromCloudinary } from "./usersSlice";
 
-export default function AddTopicById ({id}) {
+export default function AddTopicById ({id, email}) {
     const [text, setText] = useState('')
     const [imageList, setImageList] = useState([])
     const [imageURLs, setImageURLs] = useState([])
@@ -57,7 +57,7 @@ export default function AddTopicById ({id}) {
             const topicId = nanoid();
             const date = new Date().toLocaleDateString();
 
-            dispatch(addUsersTopic({id, topicId, text, imageURLs, link, date}))
+            dispatch(addUsersTopic({id, email, topicId, text, imageURLs, link, date}))
             window.location.reload()
 
         } catch (error) {

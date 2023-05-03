@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "./usersSlice";
 import AddTopicById from "./AddTopicById";
 
-export default function Profile ({id}) {
+export default function Profile ({id, email}) {
     // *** this code is not "dry" -> ps. refactor it
     const dispatch = useDispatch()
 
@@ -54,7 +54,7 @@ export default function Profile ({id}) {
             <div className="pt-23">
                 {topics}
             </div>
-            <AddTopicById id={id} />
+            <AddTopicById id={id} email={email} />
         </div>
     )
 }
