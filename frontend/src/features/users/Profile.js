@@ -43,6 +43,8 @@ export default function Profile ({id, email}) {
         }
     }
 
+    console.log(id, email)
+
     return (
         <div className="pt-23 pl-23 align-left">
             {userData 

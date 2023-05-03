@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
             const cmp = await bcrypt.compare(req.body.password, user.password);
             if(cmp) {
                 return res.json({
-                    token: jwt.sign({user: user.name}, process.env.JWT_SECRET)
+                    token: jwt.sign({user: user}, process.env.JWT_SECRET)
                 })
             } else {
                 res.send({message: "Wrong email or password."})
@@ -75,7 +75,7 @@ router.get('/profile', async (req, res) => {
         const { user } = jwt.verify(token, process.env.JWT_SECRET)
         return res.status(200).json({
             message: `Congrats ${user}! You can now accesss your profile`,
-            currentUser: await getUserByName(user)
+            currentUser: await getUserByEmail(user.email)
         })
     } catch (error) {
         return res.status(401).json({ error: 'Not Authorized '})

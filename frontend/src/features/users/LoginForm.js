@@ -24,6 +24,7 @@ export default function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(loginUser({email, password})).then((result) => {
+            console.log(result.payload.token)
             if(result.payload.message) {
                 setLoginError(result.payload.message);
             } else {
@@ -38,8 +39,8 @@ export default function LoginForm() {
                     localStorage.setItem('user', JSON.stringify(result.meta.arg))
                     localStorage.setItem('userId', JSON.stringify(loginStatus.payload.currentUser._id))
                     localStorage.setItem('userEmail', JSON.stringify(email))
-                    navigate('/', { replace: true })
-                    window.location.reload()
+                    // navigate('/', { replace: true })
+                    // window.location.reload()
                 })
             }
         })
