@@ -1,10 +1,6 @@
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 
-// cron.schedule('* * * * *', () => {
-//     console.log('Tasked scheduled with 1 minute interval');
-// })
-
 const sendEmailWithTopic = (data) => {
     let mailOptions = {
         from: 'andrewdevvv@gmail.com',
@@ -21,13 +17,15 @@ const sendEmailWithTopic = (data) => {
         }
     })
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if(error) {
-            console.log(error)
-        } else {
-            console.log(`Email sent: ` + info.response)
-            // Set new Date and update count(to count times topic was already sent to user)
-        }
+    cron.schedule('* * 1,2,4,7 * *', () => {
+        transporter.sendMail(mailOptions, (error, info) => {
+            if(error) {
+                console.log(error)
+            } else {
+                console.log(`Email sent: ` + info.response)
+                // Set new Date and update count(to count times topic was already sent to user)
+            }
+        })
     })
 }
 
