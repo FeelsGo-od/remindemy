@@ -7,8 +7,6 @@ function Home () {
   const userId = JSON.parse(localStorage.getItem('userId'))
   const userEmail = JSON.parse(localStorage.getItem('userEmail'))
 
-  console.log(localStorage)
-
   // updating app for old users
   if(userEmail === null) localStorage.clear();
 

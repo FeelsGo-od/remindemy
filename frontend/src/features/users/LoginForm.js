@@ -9,6 +9,7 @@ export default function LoginForm() {
     const [password, setPassword] = useState('')
     const [loginError, setLoginError] = useState('')
     const [successMessage, setSuccessMessage] = useState('')
+    const [passwordType, setPasswordType] = useState('password')
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -18,6 +19,11 @@ export default function LoginForm() {
     useEffect(() => {
         if(userData) navigate('/', { replace: true })
     }, [])
+
+    const togglePassword = () => {
+        if(passwordType === 'password') setPasswordType('text')
+        else setPasswordType('password')
+    }
 
     // add form validation code here
 
@@ -57,7 +63,8 @@ export default function LoginForm() {
                 </div>
                 <div className="form-block">
                     <label htmlFor="password">Enter your password: </label>
-                    <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="password" id="password" required />
+                    <input onChange={(e) => setPassword(e.target.value)} value={password} type={passwordType} name="password" id="password" required />
+                    <span onClick={togglePassword}>{passwordType === 'password' ? '👁' : '👓'}</span>
                 </div>
                 <div className="form-block">
                     <input className="button" type="submit" value="Login" />
