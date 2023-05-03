@@ -106,6 +106,9 @@ const usersSlice = createSlice({
                 state.error = null;
             }
         })
+        .addCase(addUsersTopic.fulfilled, (state, action) => {
+            window.location.reload()
+        })
     }
 })
 
