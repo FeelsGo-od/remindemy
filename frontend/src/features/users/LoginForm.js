@@ -65,7 +65,7 @@ export default function LoginForm() {
                     <label htmlFor="password">Enter your password: </label>
                     <div className="password-login">
                         <input onChange={(e) => setPassword(e.target.value)} value={password} type={passwordType} name="password" id="password" required />
-                        <span className={passwordType !== 'password' && 'hidden'} onClick={togglePassword}>{passwordType === 'password' ? '👁' : '👓'}</span>
+                        <span className={passwordType !== 'password' ? 'hidden' : ''} onClick={togglePassword}>{passwordType === 'password' ? '👁' : '👓'}</span>
                     </div>
                 </div>
                 <div className="form-block">

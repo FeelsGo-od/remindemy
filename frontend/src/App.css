@@ -253,8 +253,8 @@
 }
 
 .instruction {
-  position: absolute;
-  bottom: 30px;
+  position: fixed;
+  bottom: 0px;
   right: 0;
 }
 
@@ -272,7 +272,8 @@
 
 .instruction button {
   position: absolute;
-  bottom: 0;
+  bottom: 14px;
+  right: 25px;
   z-index: 1;
   background: #000;
   color: #fff;
@@ -288,12 +289,14 @@
 
 .instruction button.active {
   position: static;
+  text-align: right;
+  width: 100%;
 }
 
 .instruction .hidden-block {
   opacity: 0;
   z-index: -1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.09s ease;
   background-color: rgb(255 255 255);
   background-color: rgb(255 255 255 / 97%);
   padding: 0 20px 20px 26px;
