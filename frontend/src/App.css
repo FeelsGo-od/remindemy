@@ -167,6 +167,28 @@
   }
 }
 
+.password-login {
+  width: 100%;
+  position: relative;
+}
+
+.password-login input {
+  z-index: 1;
+  position: relative;
+}
+
+.password-login span {
+  position: absolute;
+  top: 40%;
+  right: 18px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.password-login span.hidden {
+  top: 32%;
+}
+
 .form .button {
   margin-top: 16px;
   cursor: pointer;

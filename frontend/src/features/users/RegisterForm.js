@@ -50,7 +50,7 @@ export default function RegisterForm() {
                 </div>
                 <div className="form-block form-input">
                     <label htmlFor="password">Enter your password: </label>
-                    <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" required />
+                    <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" minLength='8' maxLength='20' required />
                 </div>
                 <div className="form-block">
                     <input className="button" type="submit" value="Register!" />
