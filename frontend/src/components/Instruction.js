@@ -5,7 +5,7 @@ export default function Navbar() {
 
     return (
         <div className='instruction'>
-            <div className="instruction-content">
+            <div className={`instruction-content ${showInstruction ? 'active' : ''}`}>
                 <button className={showInstruction ? 'active' : ''} onClick={() => setShowInstruction(!showInstruction)}>{showInstruction ? 'Hide' : 'Show'} Instruction</button>
                 <div className={`hidden-block ${showInstruction ? 'active' : ''}`}>
                     <h3 className='align-left pt-43'>How this app works: </h3>

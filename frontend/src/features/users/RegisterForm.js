@@ -51,6 +51,12 @@ export default function RegisterForm() {
                 <div className="form-block form-input">
                     <label htmlFor="password">Enter your password: </label>
                     <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" minLength='8' maxLength='20' required />
+                    <div className="password-message">
+                        <div className="arrow"></div>
+                        <div className="message-body">
+                            <p>Password requirements: 8-20 characters, at least 1 number, 1 capital letter & 1 symbol (like !@#$%^&*).</p>
+                        </div>
+                    </div>
                 </div>
                 <div className="form-block">
                     <input className="button" type="submit" value="Register!" />

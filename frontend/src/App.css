@@ -218,6 +218,26 @@
 .form-uploaded-img  {
   width: 48%;
 }
+.password-message {
+  margin-top: 9px;
+}
+
+.password-message .arrow {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #dedede;
+}
+
+.password-message .message-body {
+  background: #dedede;
+  color: #3a3a3a;
+  padding: 20px 24px;
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
 
 .users-content {
   background: #e2e2e2;
@@ -235,6 +255,7 @@
 
 .users-content p {
   margin-bottom: 8px;
+  font-size: 20px;
 }
 
 .content {
@@ -268,6 +289,21 @@
 
 .instruction-content {
   position: relative;
+  height: 10px;
+  z-index: 1;
+}
+
+.instruction-content.active {
+  height: auto;
+}
+
+@media (max-width: 769px) {
+  .instruction-content {
+    width: 150px;
+  }
+  .instruction-content.active {
+    width: auto;
+  }
 }
 
 .instruction button {
@@ -301,9 +337,11 @@
   background-color: rgb(255 255 255 / 97%);
   padding: 0 20px 20px 26px;
   border: 2px solid #f6f6f6;
+  position: relative;
 }
 
 .instruction .hidden-block.active {
   opacity: 1;
   transition: opacity 0.3s ease;
+  position: static;
 }
