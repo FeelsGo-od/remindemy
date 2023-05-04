@@ -233,9 +233,15 @@
 .instruction {
   position: absolute;
   bottom: 30px;
-  right: 40px;
-  width: 29%;
-  margin: 0 auto;
+  right: 0;
+}
+
+@media (min-width: 769px) {
+  .instruction {
+    right: 40px;
+    width: 29%;
+    margin: 0 auto;
+  }
 }
 
 .instruction-content {
