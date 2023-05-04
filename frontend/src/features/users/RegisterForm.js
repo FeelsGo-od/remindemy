@@ -21,7 +21,7 @@ export default function RegisterForm() {
             const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
 
             if(!passwordPattern.test(password)) {
-                setPasswordError("Password requirements: 8-20 characters, 1 number, 1 letter, 1 symbol.")
+                setPasswordError("Password requirements: 8-20 characters. At least 1 number, 1 capital letter & 1 symbol (like !@#$%^&*).")
                 return;
             }
 

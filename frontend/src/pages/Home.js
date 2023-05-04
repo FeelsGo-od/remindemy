@@ -16,16 +16,7 @@ function Home () {
         <Profile id={userId} email={userEmail} />
       : 
         <div className='content'>
-          You need to <a href='/login'>sign-in</a> or <a href='register'>sign-up</a> to use this app
-          <h3 className='align-left w-40 pt-43'>How this app works: </h3>
-          <p className='align-left w-40 pt-23'>1. Create new account or login</p>
-          <p className='align-left w-40 pt-23'>2. Add your topic(s) on profile page</p>
-          <p className='align-left w-40 pt-23'>3. You can add text, images, or link to the topic you want this app to remind you.</p>
-          <p className='align-left w-40 pt-23'>
-            4. You will get email messages at specific time with 7-3-2-1 method for long-term memory.  
-            <a href='https://bettermarketing.pub/use-the-7-3-2-1-method-to-improve-your-long-term-memory-829a43a040f7?gi=4af9ba595253'>Read about it</a>
-          </p>
-          <h4 className='pt-23'>P.s - last feature is under construction</h4>
+           You need to <a href='/login'>sign-in</a> or <a href='register'>sign-up</a> to use this app
         </div>
       }
     </div>

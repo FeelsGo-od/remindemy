@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Users from './pages/Users'
 import Navbar from './components/Navbar';
+import Instruction from './components/Instruction'
 import Topic from './pages/Topic';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/users" element={ <Users /> } />
             <Route path="/topics/:id" element={ <Topic /> } />
       </Routes>
+      <Instruction />
     </div>
   );
 }
