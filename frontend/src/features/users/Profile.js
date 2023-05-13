@@ -44,7 +44,7 @@ export default function Profile ({id, email}) {
     }
 
     return (
-        <div className="pt-23 pl-23 align-left">
+        <div className="pt-23 pl-23 align-left profile-content">
             {userData 
             ? 
             <div>

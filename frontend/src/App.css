@@ -345,3 +345,8 @@
   transition: opacity 0.3s ease;
   position: static;
 }
+
+.profile-content {
+  font-family: sans-serif;
+  font-size: 17px;
+}

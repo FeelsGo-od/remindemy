@@ -9,9 +9,15 @@ export default function RegisterForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordError, setPasswordError] = useState('')
+    const [passwordType, setPasswordType] = useState('password')
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const togglePassword = () => {
+        if(passwordType === 'password') setPasswordType('text')
+        else setPasswordType('password')
+    }
 
     const canSave = [name, email, password].every(Boolean)
 
@@ -50,7 +56,10 @@ export default function RegisterForm() {
                 </div>
                 <div className="form-block form-input">
                     <label htmlFor="password">Enter your password: </label>
-                    <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" minLength='8' maxLength='20' required />
+                    <div className="password-login">
+                        <input onChange={(e) => setPassword(e.target.value)} type={passwordType} name="password" id="password" minLength='8' maxLength='20' required />
+                        <span className={passwordType !== 'password' ? 'hidden' : ''} onClick={togglePassword}>{passwordType === 'password' ? '👁' : '👓'}</span>
+                    </div>
                     <div className="password-message">
                         <div className="arrow"></div>
                         <div className="message-body">

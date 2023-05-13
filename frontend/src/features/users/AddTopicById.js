@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import axios from 'axios';
 import { nanoid } from 'nanoid'
 
 import { addUsersTopic, deleteImageFromCloudinary } from "./usersSlice";
