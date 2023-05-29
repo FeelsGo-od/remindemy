@@ -47,24 +47,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 # TODO *** FRONT-END.
 
-<!-- 1. (done) Configure all project prerequisites(database, redux store etc.)
-    - mongodb connection string: "mongodb+srv://Admin:LoraGaf998@remindemycluster.zwcs7hc.mongodb.net/?retryWrites=true&w=majority" (v) -->
-<!-- 2. Make AddUser redux feature {name: "Username", email: "usersemail@..", topics: obj} -->
-3. AddTopic in UserPage feature
-    1. Make spa routes (v)
-    2. save login data to localhost to save user's session in cookie (v)
-    3. Add some fake topics objects to user like {name: "topic name", link: "link to the topic", stage: "today" / "tomorrow" / "third day" / "7th day" / "remembered", date: 'date of the next message'}
-    2. Show all these topics in UserPage (v)
-<!-- 6. Show status(stage) of each topic right behind it in topicsList component
-8. Make the link in topic to be optional -->
+1. Improve the ui. (Deadline: the June of 2023)
+2. Make a react-native mobile app from that project (Deadline: the October of 2024)
 
-<!-- # TODO *** BACK-END.
+# TODO *** BACK-END.
 
-1. Display users from db in UsersList
-    1. Make api call to db in topicsSlice thunk to receive all users
-2. Make post request to login user.
-3. Display user's topics from database in UserPage
-    1. Make api call to that db in topicsSlice thunk to receive all topics
-4. Send scheduled messages to user's email with info like "Hi Username, today is the day to repeat this topic: a.href=topics.link>topics.name<"
-5. Get stage of each topic from db and display it right behind each topic in topicsList component
-6. Deploy it to the vercel -->
+1. Make scheduled emails sender to send topics to user with 7-3-2-1 method. (Deadline: the June of 2023)
