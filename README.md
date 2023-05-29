@@ -7,6 +7,8 @@
 
 1. Make scheduled emails sender to send topics to user with 7-3-2-1 method. (Deadline: the June of 2023)
 
+Live version: remindemy-react.vercel.app/
+
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
