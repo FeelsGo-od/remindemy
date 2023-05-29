@@ -1,3 +1,12 @@
+# TODO *** FRONT-END.
+
+1. Improve the ui. (Deadline: the June of 2023)
+2. Make a react-native mobile app from that project (Deadline: the October of 2024)
+
+# TODO *** BACK-END.
+
+1. Make scheduled emails sender to send topics to user with 7-3-2-1 method. (Deadline: the June of 2023)
+
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
@@ -44,12 +53,3 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-# TODO *** FRONT-END.
-
-1. Improve the ui. (Deadline: the June of 2023)
-2. Make a react-native mobile app from that project (Deadline: the October of 2024)
-
-# TODO *** BACK-END.
-
-1. Make scheduled emails sender to send topics to user with 7-3-2-1 method. (Deadline: the June of 2023)
