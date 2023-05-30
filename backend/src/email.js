@@ -30,6 +30,7 @@ const sendEmailWithTopic = (data) => {
     }
     
     const date = new Date();
+    const timezoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     // const tomorrow = addDays(date, 1)
     // const fourthDay = addDays(date, 3)
@@ -40,7 +41,7 @@ const sendEmailWithTopic = (data) => {
 
     sendEmail()
 
-    Cron(tomorrow, () => {
+    Cron(tomorrow, { timezone: timezoneName }, () => {
         console.log('Yay!') 
         sendEmail()
     });
