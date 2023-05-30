@@ -24,26 +24,25 @@ const sendEmailWithTopic = (data) => {
                 console.log(error)
             } else {
                 console.log(`Email sent: ` + info.response)
-                // Set new Date and update count(to count times topic was already sent to user)
             }
         })
     }
     
     const date = new Date();
-    const timezoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // const timezoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     // const tomorrow = addDays(date, 1)
     // const fourthDay = addDays(date, 3)
     // const seventhDay = addDays(date, 6)
     // const tomorrow = addMinutes(date, 1)
 
-    const tomorrow = moment(date).add(5, 'm').toDate();
+    // const tomorrow = moment(date).add(5, 'm').toDate();
 
     sendEmail()
 
-    Cron(tomorrow, { timezone: timezoneName }, () => {
-        sendEmail()
-    });
+    // Cron(tomorrow, { timezone: timezoneName }, () => {
+    //     sendEmail()
+    // });
 }
 
 module.exports = {

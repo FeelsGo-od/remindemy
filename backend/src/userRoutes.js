@@ -85,8 +85,8 @@ router.get('/profile', async (req, res) => {
 router.post('/addTopic', async (req, res) => {
     sendEmailWithTopic({
         receiver: req.body.email,
-        subject: `Repeat that topic TODAY, and you will remember it: "${req.body.name}"`,
-        text: req.body.text,
+        subject: `Remindemy Registration`,
+        text: `Thanks for checking out my project. Have a great day!;)`,
         // html: `<a href=${req.body.link}">link</a> `,
         nodemailerPassword: process.env.NODEMAILER_PASS,
         date: req.body.date,
