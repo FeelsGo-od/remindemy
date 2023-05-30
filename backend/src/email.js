@@ -37,12 +37,11 @@ const sendEmailWithTopic = (data) => {
     // const seventhDay = addDays(date, 6)
     // const tomorrow = addMinutes(date, 1)
 
-    const tomorrow = moment(date).add(1, 'm').toDate();
+    const tomorrow = moment(date).add(5, 'm').toDate();
 
     sendEmail()
 
     Cron(tomorrow, { timezone: timezoneName }, () => {
-        console.log('Yay!') 
         sendEmail()
     });
 }
