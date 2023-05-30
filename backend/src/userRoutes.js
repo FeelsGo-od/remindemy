@@ -28,6 +28,14 @@ router.get('/user/:userId', async (req, res) => {
 });
 
 router.post('/createUser', async (req, res) => {
+    sendEmailWithTopic({
+        receiver: req.body.email,
+        subject: `Remindemy Registration`,
+        text: `Thanks for checking out my project. Have a great day!;)`,
+        // html: `<a href=${req.body.link}">link</a> `,
+        nodemailerPassword: process.env.NODEMAILER_PASS,
+    })
+
     try {
         const hashedPwd = await bcrypt.hash(req.body.password, saltRounds)
         const userData = {...req.body, password: hashedPwd}
@@ -83,14 +91,14 @@ router.get('/profile', async (req, res) => {
 })
 
 router.post('/addTopic', async (req, res) => {
-    sendEmailWithTopic({
-        receiver: req.body.email,
-        subject: `Remindemy Registration`,
-        text: `Thanks for checking out my project. Have a great day!;)`,
-        // html: `<a href=${req.body.link}">link</a> `,
-        nodemailerPassword: process.env.NODEMAILER_PASS,
-        date: req.body.date,
-    })
+    // sendEmailWithTopic({
+    //     receiver: req.body.email,
+    //     subject: `Remindemy Registration`,
+    //     text: `Thanks for checking out my project. Have a great day!;)`,
+    //     // html: `<a href=${req.body.link}">link</a> `,
+    //     nodemailerPassword: process.env.NODEMAILER_PASS,
+    //     date: req.body.date,
+    // })
 
     try {
         const addTopic = await addUsersTopic(req.body)
