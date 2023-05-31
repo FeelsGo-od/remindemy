@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
-const Cron = require("croner");
-const moment = require('moment');
+// const Cron = require("croner");
+// const moment = require('moment');
 
 const sendEmailWithTopic = (data) => {
     let mailOptions = {

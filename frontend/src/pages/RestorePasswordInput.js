@@ -13,16 +13,14 @@ export default function RestorePasswordForm() {
     const handleEmailSubmit = async (e) => {
         e.preventDefault()
 
-        dispatch(sendRestoreEmail({ email }))
-
+        dispatch(sendRestoreEmail({ email })).then((result) => {
+            if(result.payload.error) {
+                setEmailError(result.payload.error)
+            } else {
+                setTab(2)
+            }
+        })
         localStorage.setItem('resetEmail', email)
-
-        const result = await dispatch(sendRestoreEmail({ email }))
-        if(result.payload.error) {
-            setEmailError(result.payload.error)
-        } else {
-            setTab(2)
-        }
     }
 
   return (
