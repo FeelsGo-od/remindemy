@@ -131,6 +131,13 @@ router.post('/sendRestoreEmail', async (req, res) => {
     const userEmail = await getUserByEmail(req.body.email)
 
     if(userEmail !== null) {
+        const clearAllSessions = await clearSessions()
+        
+        let otp = Math.random().toString(5)
+        const restoreLink = otp
+
+        const addRestoreLink = await addUsersRestoreLink(restoreLink)
+
         sendEmailWithTopic({
             receiver: req.body.email,
             subject: `Reset password`,
@@ -138,13 +145,6 @@ router.post('/sendRestoreEmail', async (req, res) => {
             html: `You can restore password here: <a href="${`https://remindemy-react.vercel.app/restorePassword/${req.body.email}/${restoreLink}`}">Reset password</a> `,
             nodemailerPassword: process.env.NODEMAILER_PASS,
         })
-
-        const clearAllSessions = await clearSessions()
-
-        let otp = Math.random().toString(5)
-        const restoreLink = otp
-        
-        const addRestoreLink = await addUsersRestoreLink(restoreLink)
 
         res.send({ status: 'OK' })
     } else {
