@@ -139,8 +139,8 @@ router.post('/sendRestoreEmail', async (req, res) => {
         sendEmailWithTopic({
             receiver: req.body.email,
             subject: `Reset password`,
-            text: `Click here to restore the password http://localhost:3000/restorePassword/${req.body.email}/${restoreLink}`,
-            html: `You can restore password here: <a href="${`http://localhost:3000/restorePassword/${req.body.email}/${restoreLink}`}">Reset password</a> `,
+            text: `Click here to restore the password https://remindemy-react.vercel.app/restorePassword/${req.body.email}/${restoreLink}`,
+            html: `You can restore password here: <a href="${`https://remindemy-react.vercel.app/restorePassword/${req.body.email}/${restoreLink}`}">Reset password</a> `,
             nodemailerPassword: process.env.NODEMAILER_PASS,
         })
 
@@ -152,7 +152,7 @@ router.post('/sendRestoreEmail', async (req, res) => {
 
 router.post('/checkRestoreLink', async (req, res) => {
     const checkSession = await getSessionByLink(req.body.restoreLink)
-    
+
     if(checkSession) {
         res.status(200).send({ status: 'OK' })
     } else {
