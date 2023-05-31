@@ -25,17 +25,10 @@ export default function RestorePasswordForm() {
 
     if(resetEmail !== email) sessionError('Error')
 
-    dispatch(checkRestoreLink({ restoreLink }))
-
-    useEffect(() => {
-        const checkResult = async () => {
-            const result = await dispatch(checkRestoreLink({ restoreLink }))
-
-            if(result.payload.error) {
-                setSessionError(result.payload.error)
-            }
+    dispatch(checkRestoreLink({ restoreLink })).then((result) => {
+        if(result.payload.error) {
+            setSessionError(result.payload.error)
         }
-        checkResult()
     })
 
     const handlePasswordSubmit = (e) => {

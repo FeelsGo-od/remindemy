@@ -131,8 +131,6 @@ router.post('/sendRestoreEmail', async (req, res) => {
     const userEmail = await getUserByEmail(req.body.email)
 
     if(userEmail !== null) {
-        const clearAllSessions = await clearSessions()
-        
         let otp = Math.random().toString(5)
         const restoreLink = otp
 
@@ -166,6 +164,8 @@ router.post('/resetPassword', async (req, res) => {
     const hashedPwd = await bcrypt.hash(req.body.password, saltRounds)
     try {
         const addTopic = await resetUsersPassword(req.body.email, hashedPwd)
+        const clearAllSessions = await clearSessions()
+        
         res.status(201).send({ status: 'OK', data: addTopic })
     } catch (error) {
         res.status(500).send('Internal Server error Occured')
