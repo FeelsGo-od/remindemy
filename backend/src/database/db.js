@@ -13,9 +13,11 @@ const client = new MongoClient(uri);
 async function run() {
     const database = client.db('remindemy');
     const users = database.collection('users');
+    const log_events = database.collection('log_events');
 
     module.exports = {
       users,
+      log_events
     }
   }
 run().catch(console.dir);

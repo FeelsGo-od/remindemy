@@ -10,13 +10,13 @@ const initialState = {
 // production: https://remindemy.vercel.app
 
 export const fetchUsers = createAsyncThunk('users', async () => {
-    const response = await fetch('https://remindemy.vercel.app/users')
+    const response = await fetch('http://localhost:8000/users')
     const users = await response.json();
     return users.data;
 })
 
 export const addNewUser = createAsyncThunk('/users/createUser', async (user) => {
-    const response = await fetch('https://remindemy.vercel.app/users/createUser', {
+    const response = await fetch('http://localhost:8000/users/createUser', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -30,7 +30,7 @@ export const addNewUser = createAsyncThunk('/users/createUser', async (user) => 
 })
 
 export const loginUser = createAsyncThunk('/users/login', async (data) => {
-    const response = await fetch('https://remindemy.vercel.app/users/login', {
+    const response = await fetch('http://localhost:8000/users/login', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -44,7 +44,7 @@ export const loginUser = createAsyncThunk('/users/login', async (data) => {
 })
 
 export const showProfile = createAsyncThunk('/users/profile', async (token) => {
-    const response = await fetch('https://remindemy.vercel.app/users/profile', {
+    const response = await fetch('http://localhost:8000/users/profile', {
         headers: {
             'Authorization': `Bearer ${token}`,
         }
@@ -54,7 +54,7 @@ export const showProfile = createAsyncThunk('/users/profile', async (token) => {
 })
 
 export const addUsersTopic = createAsyncThunk('/users/addTopic', async (data) => {
-    const response = await fetch('https://remindemy.vercel.app/users/addTopic', {
+    const response = await fetch('http://localhost:8000/users/addTopic', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -68,13 +68,55 @@ export const addUsersTopic = createAsyncThunk('/users/addTopic', async (data) =>
 })
 
 export const deleteImageFromCloudinary = createAsyncThunk('/users/topics/deleteImgById', async (id) => {
-    const response = await fetch('https://remindemy.vercel.app/users/topics/deleteImgById', {
+    const response = await fetch('http://localhost:8000/users/topics/deleteImgById', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
             'Content-type': 'application/json',
         },
         body: JSON.stringify(id)
+    })
+
+    const result = response.json()
+    return result;
+})
+
+export const sendRestoreEmail = createAsyncThunk('/users/sendRestoreEmail', async (email) => {
+    const response = await fetch('http://localhost:8000/users/sendRestoreEmail', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(email)
+    })
+
+    const result = response.json()
+    return result;
+})
+
+export const checkRestoreLink = createAsyncThunk('/users/checkRestoreLink', async (data) => {
+    const response = await fetch('http://localhost:8000/users/checkRestoreLink', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+
+    const result = response.json()
+    return result;
+})
+
+export const resetPassword = createAsyncThunk('/users/resetPassword', async (password) => {
+    const response = await fetch('http://localhost:8000/users/resetPassword', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(password)
     })
 
     const result = response.json()
@@ -95,7 +137,11 @@ const usersSlice = createSlice({
             state.users = state.users.concat(action.payload)
         })
         .addCase(addNewUser.fulfilled, (state, action) => {
-            state.users.push(action.payload)
+            if(action.payload.message) {
+                state.error = action.payload.message
+            } else {
+                state.users.push(action.payload)
+            }
         })
         .addCase(loginUser.fulfilled, (state, action) => {
             if(!action.payload.message) {

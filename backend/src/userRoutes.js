@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const { getAllUsers, getUserById, createUser, getUserByEmail, getUserByName, 
-    addUsersTopic, deleteCloudinaryImgById } 
+    addUsersTopic, deleteCloudinaryImgById, addUsersRestoreLink, resetUsersPassword, getSessionByLink } 
 = require('./database/users');
 const { sendEmailWithTopic } = require('./email');
 
@@ -36,14 +36,18 @@ router.post('/createUser', async (req, res) => {
         nodemailerPassword: process.env.NODEMAILER_PASS,
     })
 
-    try {
-        const hashedPwd = await bcrypt.hash(req.body.password, saltRounds)
-        const userData = {...req.body, password: hashedPwd}
-        const newUser = await createUser(userData);
-        res.status(201).send({ status: 'OK', data: newUser })
-    } catch (error) {
-        console.log(error)
-        res.status(500).send('Internal Server error Occured')
+    if(await getUserByEmail(req.body.email) !== null) {
+        res.status(409).send({ message: 'Current email is already in use' })
+    } else {
+        try {
+            const hashedPwd = await bcrypt.hash(req.body.password, saltRounds)
+            const userData = {...req.body, password: hashedPwd}
+            const newUser = await createUser(userData);
+            res.status(201).send({ status: 'OK', data: newUser })
+        } catch (error) {
+            console.log(error)
+            res.status(500).send('Internal Server error Occured')
+        }
     }
 })
 
@@ -120,6 +124,49 @@ router.post('/topics/deleteImgById', async (req, res) => {
         res.status(200).send({ status: 'OK', data: deleteImg })
     } catch (error) {
         res.status(500).send(error)
+    }
+})
+
+router.post('/sendRestoreEmail', async (req, res) => {
+    const userEmail = await getUserByEmail(req.body.email)
+
+    if(userEmail !== null) {
+        let otp = Math.random().toString(5)
+
+        const restoreLink = otp
+        const addRestoreLink = await addUsersRestoreLink(restoreLink)
+
+        sendEmailWithTopic({
+            receiver: req.body.email,
+            subject: `Reset password`,
+            text: `Click here to restore the password http://localhost:3000/restorePassword/${req.body.email}/${restoreLink}`,
+            html: `You can restore password here: <a href="${`http://localhost:3000/restorePassword/${req.body.email}/${restoreLink}`}">Reset password</a> `,
+            nodemailerPassword: process.env.NODEMAILER_PASS,
+        })
+
+        res.send({ status: 'OK' })
+    } else {
+        res.status(404).send({ status: 'FAILED', error: 'There is no account with that email.' })
+    }
+});
+
+router.post('/checkRestoreLink', async (req, res) => {
+    const checkSession = await getSessionByLink(req.body.restoreLink)
+    
+    if(checkSession) {
+        res.status(200).send({ status: 'OK' })
+    } else {
+        res.status(404).send({ status: 'TIMEOUT', error: 'The link was expired or did not exist' })
+    }
+});
+
+router.post('/resetPassword', async (req, res) => {
+    try {
+        const addTopic = await resetUsersPassword(req.body.email, hashedPwd)
+        res.status(201).send({ status: 'OK', data: addTopic })
+    } catch (error) {
+        res.status(500).send('Internal Server error Occured')
+        console.log(error)
     }
 })
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,11 @@ export default function RegisterForm() {
     const [passwordError, setPasswordError] = useState('')
     const [passwordType, setPasswordType] = useState('password')
 
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('user'))
+        if(userData) navigate('/', { replace: true })
+    }, [])
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -21,7 +26,7 @@ export default function RegisterForm() {
 
     const canSave = [name, email, password].every(Boolean)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if(canSave) {
             const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
@@ -32,14 +37,21 @@ export default function RegisterForm() {
             }
 
             const topics = []
-            dispatch(addNewUser({name, email, password, topics}))
 
-            setName('');
-            setEmail('');
-            setPassword('');
-            setPasswordError('')
+            const regResult = await dispatch(addNewUser({name, email, password, topics}))
 
-            navigate('/login', { replace: true })
+            if(regResult.payload.message) {
+                dispatch(addNewUser({name, email, password, topics}))
+                setPasswordError(regResult.payload.message)
+            } else {
+                dispatch(addNewUser({name, email, password, topics}))
+
+                setName('');
+                setEmail('');
+                setPassword('');
+                setPasswordError('')
+                navigate('/login', { replace: true })
+            }
         }
     }
 
@@ -66,6 +78,9 @@ export default function RegisterForm() {
                             <p>Password requirements: 8-20 characters, at least 1 number, 1 capital letter & 1 symbol (like !@#$%^&*).</p>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <a href="/login">Already have an account?</a>
                 </div>
                 <div className="form-block">
                     <input className="button" type="submit" value="Register!" />

@@ -1,37 +1,27 @@
 const { ObjectId } = require('mongodb')
-const db = require('./db')
+const { users, log_events } = require('./db')
 
 let cloudinary = require('cloudinary').v2;
 
 const getAllUsers = async () => {
-    return await db.users.find().toArray();
+    return await users.find().toArray();
 }
 
 const getUserById = async (id) => {
-    return await db.users.findOne({ _id: ObjectId(id) });
+    return await users.findOne({ _id: ObjectId(id) });
 }
 
 const createUser = async (user) => {
-    const result = await db.users.insertOne(user)
+    const result = await users.insertOne(user)
     return { ...user, _id: result.insertedId }
 }
 
 const getUserByEmail = async (mail) => {
-    return await db.users.findOne({email: mail})
+    return await users.findOne({email: mail})
 }
 
 const getUserByName = async (username) => {
-    return await db.users.findOne({name: username})
-}
-
-const addUsersTopic = async (data) => {
-    const filter = {'_id': new ObjectId(`${data.id}`)}
-    const updateDocument = {
-        $push: {
-            "topics": {topicId: data.topicId, text: data.text, link: data.link, imageURLs: {...data.imageURLs}, date: data.date}
-        }
-    }
-    return await db.users.updateOne(filter, updateDocument)
+    return await users.findOne({name: username})
 }
 
 const deleteCloudinaryImgById = async (data) => {
@@ -44,6 +34,38 @@ const deleteCloudinaryImgById = async (data) => {
     cloudinary.uploader.destroy(data.id, function(result) { console.log('photo was deleted') });
 }
 
+const addUsersTopic = async (data) => {
+    const filter = {'_id': new ObjectId(`${data.id}`)}
+    const updateDocument = {
+        $push: {
+            "topics": {topicId: data.topicId, text: data.text, link: data.link, imageURLs: {...data.imageURLs}, date: data.date}
+        }
+    }
+    return await users.updateOne(filter, updateDocument)
+}
+
+const addUsersRestoreLink = async (restoreLink) => {
+    return await log_events.insertOne( {
+        "createdAt": new Date(),
+        "logEvent": 2,
+        "restoreLink": restoreLink
+     } )
+}
+
+const getSessionByLink = async (link) => {
+    return await log_events.findOne({"restoreLink": link})
+}
+
+const resetUsersPassword = async (email, hashedPwd) => {
+    const filter = { 'email': email }
+    const updateDocument = {
+        $set: {
+            "password": hashedPwd
+        }
+    }
+    return await users.updateOne(filter, updateDocument)
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
@@ -51,5 +73,8 @@ module.exports = {
     getUserByEmail,
     getUserByName,
     addUsersTopic,
-    deleteCloudinaryImgById
+    deleteCloudinaryImgById,
+    addUsersRestoreLink,
+    getSessionByLink,
+    resetUsersPassword
 }

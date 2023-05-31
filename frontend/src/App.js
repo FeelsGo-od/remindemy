@@ -9,6 +9,8 @@ import Users from './pages/Users'
 import Navbar from './components/Navbar';
 import Instruction from './components/Instruction'
 import Topic from './pages/Topic';
+import RestorePasswordInput from './pages/RestorePasswordInput';
+import RestorePassword from './pages/RestorePassword';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/login" element={ <Login /> } />
             <Route path="/users" element={ <Users /> } />
             <Route path="/topics/:id" element={ <Topic /> } />
+            <Route path="/restorePassword" element={ <RestorePasswordInput /> } />
+            <Route path="/restorePassword/:email/:restoreLink" element={ <RestorePassword /> } />
       </Routes>
       <Instruction />
     </div>

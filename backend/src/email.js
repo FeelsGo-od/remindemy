@@ -7,6 +7,7 @@ const sendEmailWithTopic = (data) => {
         from: 'andrewdevvv@gmail.com',
         to: data.receiver,
         subject: data.subject,
+        html: data.html ? data.html : '',
         text: data.text,
     }
 
