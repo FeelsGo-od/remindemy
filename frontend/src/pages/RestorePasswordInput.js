@@ -15,6 +15,8 @@ export default function RestorePasswordForm() {
 
         dispatch(sendRestoreEmail({ email }))
 
+        localStorage.setItem('resetEmail', email)
+
         const result = await dispatch(sendRestoreEmail({ email }))
         if(result.payload.error) {
             setEmailError(result.payload.error)

@@ -17,10 +17,14 @@ export default function RestorePasswordForm() {
         else setPasswordType('password')
     }
 
+    const resetEmail = localStorage.getItem('resetEmail')
+
     const path = window.location.pathname.split('/')
     const email = path[2]
     const restoreLink = path[3]
     console.log(path)
+
+    if(resetEmail !== email) sessionError('Error')
 
     dispatch(checkRestoreLink({ restoreLink }))
 
