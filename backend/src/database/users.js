@@ -56,6 +56,10 @@ const getSessionByLink = async (link) => {
     return await log_events.findOne({"restoreLink": link})
 }
 
+const clearSessions = async () => {
+    return await log_events.deleteMany({})
+}
+
 const resetUsersPassword = async (email, hashedPwd) => {
     const filter = { 'email': email }
     const updateDocument = {
@@ -76,5 +80,6 @@ module.exports = {
     deleteCloudinaryImgById,
     addUsersRestoreLink,
     getSessionByLink,
+    clearSessions,
     resetUsersPassword
 }

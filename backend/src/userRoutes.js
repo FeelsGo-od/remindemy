@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const { getAllUsers, getUserById, createUser, getUserByEmail, getUserByName, 
-    addUsersTopic, deleteCloudinaryImgById, addUsersRestoreLink, resetUsersPassword, getSessionByLink } 
+    addUsersTopic, deleteCloudinaryImgById, addUsersRestoreLink, resetUsersPassword, getSessionByLink, clearSessions } 
 = require('./database/users');
 const { sendEmailWithTopic } = require('./email');
 
@@ -131,18 +131,20 @@ router.post('/sendRestoreEmail', async (req, res) => {
     const userEmail = await getUserByEmail(req.body.email)
 
     if(userEmail !== null) {
-        let otp = Math.random().toString(5)
-
-        const restoreLink = otp
-        const addRestoreLink = await addUsersRestoreLink(restoreLink)
-
         sendEmailWithTopic({
             receiver: req.body.email,
             subject: `Reset password`,
-            text: `Click here to restore the password https://remindemy-react.vercel.app/restorePassword/${req.body.email}/${restoreLink}`,
+            // text: `Click here to restore the password https://remindemy-react.vercel.app/restorePassword/${req.body.email}/${restoreLink}`,
             html: `You can restore password here: <a href="${`https://remindemy-react.vercel.app/restorePassword/${req.body.email}/${restoreLink}`}">Reset password</a> `,
             nodemailerPassword: process.env.NODEMAILER_PASS,
         })
+
+        const clearAllSessions = await clearSessions()
+
+        let otp = Math.random().toString(5)
+        const restoreLink = otp
+        
+        const addRestoreLink = await addUsersRestoreLink(restoreLink)
 
         res.send({ status: 'OK' })
     } else {
@@ -161,6 +163,7 @@ router.post('/checkRestoreLink', async (req, res) => {
 });
 
 router.post('/resetPassword', async (req, res) => {
+    const hashedPwd = await bcrypt.hash(req.body.password, saltRounds)
     try {
         const addTopic = await resetUsersPassword(req.body.email, hashedPwd)
         res.status(201).send({ status: 'OK', data: addTopic })

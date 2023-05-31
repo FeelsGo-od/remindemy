@@ -22,7 +22,6 @@ export default function RestorePasswordForm() {
     const path = window.location.pathname.split('/')
     const email = path[2]
     const restoreLink = path[3]
-    console.log(path)
 
     if(resetEmail !== email) sessionError('Error')
 
@@ -31,7 +30,6 @@ export default function RestorePasswordForm() {
     useEffect(() => {
         const checkResult = async () => {
             const result = await dispatch(checkRestoreLink({ restoreLink }))
-            console.log(result.payload.error)
 
             if(result.payload.error) {
                 setSessionError(result.payload.error)

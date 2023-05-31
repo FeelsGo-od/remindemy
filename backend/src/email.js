@@ -8,7 +8,7 @@ const sendEmailWithTopic = (data) => {
         to: data.receiver,
         subject: data.subject,
         html: data.html ? data.html : '',
-        text: data.text,
+        text: data.text ? data.text : '',
     }
 
     let transporter = nodemailer.createTransport({
