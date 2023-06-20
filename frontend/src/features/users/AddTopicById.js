@@ -42,9 +42,8 @@ export default function AddTopicById ({id, email}) {
     const deleteCurrentImg = async (id) => {
         dispatch(deleteImageFromCloudinary({id}))
 
-        const currentImgIndex = imageURLs.find((image) => image.id === id)
-        imageURLs.splice(currentImgIndex, 1)
-        setImageURLs(...imageURLs)
+        const newArray = imageURLs.filter((imageURL) => imageURL.id !== id)
+        setImageURLs(newArray)
     }
 
     const handleSubmit = async (e) => {
@@ -64,17 +63,17 @@ export default function AddTopicById ({id, email}) {
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit} encType="multipart/form-data" className="form w-40 mg-none">
-                <div className="form-block form-input">
-                    <label htmlFor="text">Enter the text u want to remember: </label>
+        <div className="w-40">
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className="form w-40 mg-none add-topic-form">
+                <div className="form-block form-input column">
+                    <label htmlFor="text">Enter some text for your topic:</label> {/* u want to remember: */}
                     <textarea onChange={(e) => setText(e.target.value)} value={text} name="text" rows="15" cols="53"></textarea>
                 </div>
-                <div className="form-block">
+                <div className="form-block pointer">
                     <p>Add images u want to study later:</p>
                     <p onClick={handleImagesChange}>Upload images</p>
                     <div className="form-uploaded-images">
-                        { imageURLs && imageURLs.map(image => <div><img key={image.id} src={image.url} id={image.id} className="form-uploaded-img" /><p onClick={() => deleteCurrentImg(image.id)}>Delete image</p></div>) }
+                        { imageURLs !== null && imageURLs.map(image => <div key={image.id}><img src={image.url} id={image.id} className="form-uploaded-img" /><p onClick={() => deleteCurrentImg(image.id)}>Delete image</p></div>) }
                     </div>
                 </div>
                 <div className="form-block form-input">
@@ -85,6 +84,6 @@ export default function AddTopicById ({id, email}) {
                     <input className="button" type="submit" value="Add Topic" />
                 </div>
             </form>
-        </>
+        </div>
     )
 }

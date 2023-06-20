@@ -38,7 +38,7 @@ const addUsersTopic = async (data) => {
     const filter = {'_id': new ObjectId(`${data.id}`)}
     const updateDocument = {
         $push: {
-            "topics": {topicId: data.topicId, text: data.text, link: data.link, imageURLs: {...data.imageURLs}, date: data.date}
+            "topics": {topicId: data.topicId, text: data.text, link: data.link, imageURLs: [...data.imageURLs], date: data.date}
         }
     }
     return await users.updateOne(filter, updateDocument)

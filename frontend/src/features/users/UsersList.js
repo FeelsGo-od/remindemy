@@ -31,7 +31,7 @@ export default function UsersList () {
     return (
         <>
             <div className="users-content">
-                <h3 className="title">Users using this app:</h3>
+                <h3 className="title">{listUsers && listUsers.length} Users using this app:</h3>
                 {listUsers}
             </div>
         </>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { addNewUser } from "./usersSlice";
+import { addNewUser, askGoogleAuthPerm } from "./usersSlice";
 
 export default function RegisterForm() {
     const [name, setName] = useState('')
@@ -18,6 +18,18 @@ export default function RegisterForm() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const handleGoogleAuth = (e) => {
+        e.preventDefault()
+        
+        dispatch(askGoogleAuthPerm()).then((result) => {
+            if(result.payload.authLink) {
+                window.location.href = result.payload.authLink;
+            } else {
+                setPasswordError('Error with google authorization')
+            }
+        })
+    }
 
     const togglePassword = () => {
         if(passwordType === 'password') setPasswordType('text')
@@ -58,6 +70,10 @@ export default function RegisterForm() {
     return (
         <>
             <form onSubmit={handleSubmit} className="form w-40">
+                {/* <div className="form-block form-input">
+                    <a>Github</a>
+                    <a href="#" onClick={handleGoogleAuth}>Google</a>
+                </div> */}
                 <div className="form-block form-input">
                     <label htmlFor="name">Enter your name: </label>
                     <input onChange={(e) => setName(e.target.value)} type="text" name="name" id="name" required />

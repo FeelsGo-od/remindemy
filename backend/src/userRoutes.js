@@ -8,6 +8,7 @@ const { getAllUsers, getUserById, createUser, getUserByEmail, getUserByName,
     addUsersTopic, deleteCloudinaryImgById, addUsersRestoreLink, resetUsersPassword, getSessionByLink, clearSessions } 
 = require('./database/users');
 const { sendEmailWithTopic } = require('./email');
+const { generateGoogleAuth, retrieveGoogleToken } = require('./oauth2');
 
 const saltRounds = 10;
 
@@ -95,14 +96,14 @@ router.get('/profile', async (req, res) => {
 })
 
 router.post('/addTopic', async (req, res) => {
-    // sendEmailWithTopic({
-    //     receiver: req.body.email,
-    //     subject: `Remindemy Registration`,
-    //     text: `Thanks for checking out my project. Have a great day!;)`,
-    //     // html: `<a href=${req.body.link}">link</a> `,
-    //     nodemailerPassword: process.env.NODEMAILER_PASS,
-    //     date: req.body.date,
-    // })
+    sendEmailWithTopic({
+        receiver: req.body.email,
+        subject: `Remindemy Registration`,
+        text: `Thanks for checking out my project. Have a great day!;)`,
+        // html: `<a href=${req.body.link}">link</a> `,
+        nodemailerPassword: process.env.NODEMAILER_PASS,
+        date: req.body.date,
+    })
 
     try {
         const addTopic = await addUsersTopic(req.body)
@@ -139,7 +140,6 @@ router.post('/sendRestoreEmail', async (req, res) => {
         sendEmailWithTopic({
             receiver: req.body.email,
             subject: `Reset password`,
-            // text: `Click here to restore the password https://remindemy-react.vercel.app/restorePassword/${req.body.email}/${restoreLink}`,
             html: `You can restore password here: <a href="${`https://remindemy-react.vercel.app/restorePassword/${req.body.email}/${restoreLink}`}">Reset password</a> `,
             nodemailerPassword: process.env.NODEMAILER_PASS,
         })
@@ -165,13 +165,38 @@ router.post('/resetPassword', async (req, res) => {
     try {
         const addTopic = await resetUsersPassword(req.body.email, hashedPwd)
         const clearAllSessions = await clearSessions()
-        
+
         res.status(201).send({ status: 'OK', data: addTopic })
     } catch (error) {
         res.status(500).send('Internal Server error Occured')
         console.log(error)
     }
 })
+
+router.post('/askGoogleAuthPerm', async (req, res) => {
+    try {
+        const askPerm = generateGoogleAuth({
+            clientID: process.env.CLIENT_ID, clientSECRET: process.env.CLIENT_SECRET, redirectURL: process.env.REDIRECT_URL
+        })
+        res.status(200).send({ status: 'OK', authLink: askPerm })
+    } catch(err) {
+        res.status(500).send('Internal Server error Occured')
+        console.log(err)
+    }
+});
+
+router.get('/retrieveGoogleAuthToken/:code', async (req, res) => {
+    try {
+        const code = req.params.code
+        const token = await retrieveGoogleToken(code)
+        console.log(token)
+
+        res.status(200).send({ status: 'OK', token: token })
+    } catch(err) {
+        res.status(500).send('Internal Server error Occured')
+        console.log(err)
+    }
+});
 
 module.exports = router;
 

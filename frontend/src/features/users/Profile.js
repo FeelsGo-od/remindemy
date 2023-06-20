@@ -31,6 +31,7 @@ export default function Profile ({id, email}) {
             topics = currentUser.topics.map((topic) => 
                 <div key={topic.topicId}>
                     <a href={`topics/${topic.topicId}`}>{topic.text}</a>
+                    <span> {topic.date}</span>
                 </div>
             )
         } else {
@@ -44,17 +45,20 @@ export default function Profile ({id, email}) {
     }
 
     return (
-        <div className="pt-23 pl-23 align-left profile-content">
+        <div className="pt-23 pl-23 profile-content">
             {userData 
             ? 
             <div>
                 <p><b>Name:</b> {userData.name}</p>
                 <p><b>Email:</b> {userData.email}</p>
             </div> : ''}
-            <div className="pt-23">
-                {topics}
+            <div className="flex mt-23 wrap gap-23">
+                <AddTopicById id={id} email={email} />
+                <div className="pt-23 w-40 topics-container">
+                    <h3>All Topics:</h3>
+                    {topics}
+                </div>
             </div>
-            <AddTopicById id={id} email={email} />
         </div>
     )
 }

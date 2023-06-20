@@ -11,6 +11,7 @@ import Instruction from './components/Instruction'
 import Topic from './pages/Topic';
 import RestorePasswordInput from './pages/RestorePasswordInput';
 import RestorePassword from './pages/RestorePassword';
+import GoogleAuthPoint from './pages/GoogleAuthPoint'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/topics/:id" element={ <Topic /> } />
             <Route path="/restorePassword" element={ <RestorePasswordInput /> } />
             <Route path="/restorePassword/:email/:restoreLink" element={ <RestorePassword /> } />
+            <Route path="/retrieveGoogleAuthToken" element={ <GoogleAuthPoint /> } />
       </Routes>
       <Instruction />
     </div>
