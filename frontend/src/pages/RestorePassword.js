@@ -45,6 +45,10 @@ export default function RestorePasswordForm() {
         dispatch(resetPassword({ email, password }))
     }
 
+    useEffect(() => {
+        window.location.reload()
+    }, [])
+
   return (
     sessionError ? (
         <div className="password-message">
