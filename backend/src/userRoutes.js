@@ -96,14 +96,14 @@ router.get('/profile', async (req, res) => {
 })
 
 router.post('/addTopic', async (req, res) => {
-    sendEmailWithTopic({
-        receiver: req.body.email,
-        subject: `Remindemy Registration`,
-        text: `Thanks for checking out my project. Have a great day!;)`,
-        // html: `<a href=${req.body.link}">link</a> `,
-        nodemailerPassword: process.env.NODEMAILER_PASS,
-        date: req.body.date,
-    })
+    // sendEmailWithTopic({
+    //     receiver: req.body.email,
+    //     subject: `Remindemy Registration`,
+    //     text: `Thanks for checking out my project. Have a great day!;)`,
+    //     // html: `<a href=${req.body.link}">link</a> `,
+    //     nodemailerPassword: process.env.NODEMAILER_PASS,
+    //     date: req.body.date,
+    // })
 
     try {
         const addTopic = await addUsersTopic(req.body)
