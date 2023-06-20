@@ -45,6 +45,7 @@ export default function RestorePasswordForm() {
                 <p>Check your email for message with instructions</p>
                 <div>
                     Did not get any message? <a onClick={handleEmailSubmit} href='#'>Send again</a>
+                    (it may not be sent sometimes due to free vercel hosting restrictions)
                 </div>
             </div>
         </div>
