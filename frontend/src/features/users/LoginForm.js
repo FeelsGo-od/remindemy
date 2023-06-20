@@ -68,9 +68,9 @@ export default function LoginForm() {
                         <span className={passwordType !== 'password' ? 'hidden' : ''} onClick={togglePassword}>{passwordType === 'password' ? '👁' : '👓'}</span>
                     </div>
                 </div>
-                <div>
+                {/* <div>
                     <a href="/restorePassword">Forgot the password?</a>
-                </div>
+                </div> */}
                 <div className="form-block">
                     <input className="button" type="submit" value="Login" />
                 </div>
