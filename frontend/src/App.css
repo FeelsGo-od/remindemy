@@ -282,6 +282,10 @@ textarea {
   padding: 22px 23px 0 23px;
 }
 
+.form-error a {
+  color: #000;
+}
+
 .form-uploaded-images {
   display: flex;
   flex-wrap: wrap;
@@ -315,6 +319,9 @@ textarea {
   .password-message .message-body {
     font-size: 12px;
   }
+}
+.password-message .message-body a {
+  color: #000;
 }
 
 .topics-container {
