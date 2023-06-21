@@ -8,6 +8,7 @@ export default function LoginForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loginError, setLoginError] = useState('')
+    const [loading, setLoading] = useState(false)
     const [successMessage, setSuccessMessage] = useState('')
     const [passwordType, setPasswordType] = useState('password')
 
@@ -29,9 +30,11 @@ export default function LoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         dispatch(loginUser({email, password})).then((result) => {
             if(result.payload.message) {
                 setLoginError(result.payload.message);
+                setLoading(false)
             } else {
                 // token sent successfully
                 setEmail('');
@@ -75,6 +78,7 @@ export default function LoginForm() {
                     <input className="button" type="submit" value="Login" />
                 </div>
                 {loginError ? <div className="form-block form-error">{loginError}</div> : ''}
+                {!loginError && loading ? 'loading...' : ''}
             </form>}
         </>
     )
